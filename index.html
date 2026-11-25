@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101112">
+<title>Impact Lab — Training Arena</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23ff662e'/%3E%3Cpath d='M19 13h12L16 51H4zm17 0h12L33 51H21zm17 0h8L46 51h-8z' fill='%23111213'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css"><script src="mannequin.js" defer></script><script src="ring.js" defer></script><script src="game.js" defer></script>
+</head>
+<body>
+<header class="top"><div class="topin">
+<a href="#arena" class="brand" aria-label="Impact Lab สนามซ้อม"><span class="brandmark"><i></i><i></i><i></i></span>IMPACT<span>LAB</span></a>
+<nav aria-label="เมนูหลัก"><button class="navlink active" id="nav-arena"><i data-icon="arena"></i>สนามซ้อม</button><button class="navlink" id="nav-history"><i data-icon="chart"></i>สถิติการซ้อม</button></nav>
+<div class="tools"><button id="audio" class="tool" aria-label="ปิดเสียง" aria-pressed="true"><i data-icon="volume"></i></button><button id="help" class="tool" aria-label="วิธีเล่น"><i data-icon="help"></i></button></div>
+</div></header>
+<main id="arena">
+<div class="intro"><div><div class="eyebrow"><b></b> FIRST-PERSON BOXING SIMULATOR</div><h1>TRAINING ARENA<span>.</span></h1><p>สังเวียนส่วนตัวของคุณ เลือกคู่ซ้อมแล้วปล่อยหมัดได้เลย</p></div><div class="online"><em></em><span id="ready-text">พร้อมซ้อม</span></div></div>
+<div class="layout">
+<section class="gamecard" aria-label="สนามซ้อมสามมิติ">
+<div class="scene" id="scene" tabindex="0" aria-label="สนามซ้อม ใช้ A และ D หรือแตะซ้ายขวาเพื่อชก กดค้างเพื่อชาร์จแล้วปล่อย">
+<div class="environment"></div><div class="vignette"></div>
+<div class="world"><div id="shadow"></div><canvas id="ring" aria-hidden="true"></canvas></div>
+<div class="scene-hud"><span class="cam"><b></b>ARENA CAM</span><div class="view-tools"><button id="scene-pause" hidden class="hud-btn" aria-label="พักเกม"></button><button id="expand" class="hud-btn" aria-label="ขยายสนามซ้อม"><i data-icon="expand"></i></button></div></div>
+<div class="aim" aria-hidden="true"><b></b></div>
+<div class="charge-meter" id="charge-meter" hidden>
+<div><span>พลังชาร์จ</span><b id="charge-value">0%</b></div>
+<progress id="charge-progress" aria-label="พลังชาร์จ" value="0" max="100"></progress>
+</div>
+<div id="scene-message" hidden><strong id="message-title"></strong><small id="message-sub"></small></div>
+<div class="location"><small><i data-icon="pin"></i> ARENA 01</small><strong>WAREHOUSE GYM</strong></div>
+<div class="view-info"><i data-icon="eye"></i> FIRST PERSON</div>
+</div>
+<div class="metrics">
+<div><i data-icon="time"></i><section><small>เวลาคงเหลือ</small><strong id="clock">02:00</strong></section></div>
+<div><i data-icon="fist"></i><section><small>จำนวนครั้งที่เข้าเป้า</small><strong id="hits">0</strong></section></div>
+<div><i data-icon="bolt"></i><section><small>คอมโบต่อเนื่อง</small><strong class="orange" id="combo">×0</strong></section></div>
+</div></section>
+<aside class="setup"><header><i data-icon="sliders"></i><h2>ตั้งค่าการซ้อม</h2><span class="stripes" aria-hidden="true"></span></header>
+<div class="settingbody">
+<fieldset id="configuration"><div class="section-label"><h3>เป้าซ้อม</h3><span>TARGET</span></div>
+<div class="target-options">
+<button type="button" class="target" data-target="bag" aria-pressed="false"><span class="tick">✓</span><span class="target-art"><img src="assets/bag.webp" alt=""></span><b>กระสอบทราย</b></button>
+<button type="button" class="target" data-target="dummy" aria-pressed="false"><span class="tick">✓</span><span class="target-art"><canvas id="thumb" width="180" height="145"></canvas></span><b>หุ่นคู่ซ้อม</b></button>
+<button type="button" class="target selected" data-target="boxer" aria-pressed="true"><span class="tick">✓</span><span class="target-art"><img id="boxer-thumb" src="assets/boxers/male-young.webp" alt=""></span><b>นักมวยสมมติ</b></button>
+</div>
+<button id="custom" class="custom">ปรับเพศและอายุ <i data-icon="sliders"></i></button>
+<div id="aim-zone"><div class="section-label"><h3>จุดเล็งหมัด</h3><span>AIM</span></div>
+<div class="equip-options"><button class="equip selected" data-zone="face" aria-pressed="true">ใบหน้า</button><button class="equip" data-zone="body" aria-pressed="false">ลำตัว</button></div></div>
+<div class="section-label"><h3>อุปกรณ์</h3><span>EQUIPMENT</span></div>
+<div class="equip-options"><button class="equip selected" data-gear="gloves" aria-pressed="true"><i data-icon="fist"></i>นวมชกมวย</button><button class="equip" data-gear="baton" aria-pressed="false"><i data-icon="baton"></i>ไม้โฟม</button></div>
+<div class="section-label"><h3>เวลาต่อรอบ</h3><span>DURATION</span></div>
+<div class="dur-options"><button data-duration="60" aria-pressed="false">1 นาที</button><button class="selected" data-duration="120" aria-pressed="true">2 นาที</button><button data-duration="180" aria-pressed="false">3 นาที</button></div></fieldset>
+<button id="primary" class="primary"><i data-icon="play"></i><span>เริ่มซ้อม</span></button><button id="end" class="end" hidden>จบรอบนี้</button>
+</div></aside>
+</div>
+<div class="controlbar"><div class="controltitle"><i data-icon="gamepad"></i><h2>การควบคุม</h2></div><div class="keyrow"><span><kbd>A</kbd> ชกซ้าย</span><span><kbd>D</kbd> ชกขวา</span><span>กดค้างเพื่อชาร์จ</span><span><kbd>SPACE</kbd> ตั้งการ์ด</span><span><kbd>ESC</kbd> พักเกม</span></div><button id="morehelp" aria-label="ดูวิธีเล่น"><i data-icon="help"></i></button></div>
+<div class="touchbar" hidden><button data-hand="left">ชกซ้าย</button><button id="guard">ตั้งการ์ด</button><button data-hand="right">ชกขวา</button></div>
+</main>
+<dialog id="modal"><div class="modalhead"><h2 id="modal-title"></h2><button id="close" class="tool" aria-label="ปิด"><i data-icon="close"></i></button></div><div id="modal-body"></div></dialog>
+</body></html>
